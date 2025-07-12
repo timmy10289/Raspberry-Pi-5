@@ -44,6 +44,7 @@ deactivate
 
 ## 安裝MQTT並測試  
 使用 localhost：如果你的應用程序（如發布者和訂閱者）與 MQTT Broker 在同一台設備上運行，可以將 Broker 設定為 localhost 或 127.0.0.1  
+如果你希望從其他設備訪問你的 MQTT Broker，則需要獲取 Raspberry Pi 的 IP 地址  
 pip install paho-mqtt  
 
 建立一個發佈消息的程式  
@@ -52,14 +53,24 @@ sudo nano publisher.py
 
 ```python  
 import paho.mqtt.client as mqtt
+import time
 
-broker = "localhost"  # 或者替換為你的 MQTT broker IP
+broker = "localhost"  # 可以替換為你的 MQTT broker IP
 topic = "test/topic"
 
+# 創建 MQTT 客戶端實例
 client = mqtt.Client()
+
+# 連接到 MQTT broker
 client.connect(broker)
 
-client.publish(topic, "Hello, MQTT!")
+# 發佈消息
+for i in range(5):
+    message = f"Message {i+1}"
+    client.publish(topic, message)
+    print(f"Published: {message}")
+    time.sleep(1)  # 每秒發佈一條消息
+
 client.disconnect()
 
 ```  
@@ -70,20 +81,47 @@ sudo nano subscribe.py
 ```python  
 import paho.mqtt.client as mqtt
 
-broker = "localhost"  # 或者替換為你的 MQTT broker IP
+broker = "localhost"  # 可以替換為你的 MQTT broker IP
 topic = "test/topic"
 
+# 當接收到消息時的回調函數
 def on_message(client, userdata, message):
     print(f"Received message '{message.payload.decode()}' on topic '{message.topic}'")
 
+# 創建 MQTT 客戶端實例
 client = mqtt.Client()
-client.connect(broker)
-client.subscribe(topic)
+
+# 設置回調函數
 client.on_message = on_message
 
+# 連接到 MQTT broker
+client.connect(broker)
+
+# 訂閱主題
+client.subscribe(topic)
+
+# 開始循環，等待消息
 client.loop_start()
 
-```  
+# 保持程序運行，直到手動停止
+try:
+    while True:
+        pass
+except KeyboardInterrupt:
+    print("Exiting...")
+    client.loop_stop()
+    client.disconnect()
+
+```
+
+## 開始實驗
+再打開一個新的終端  
+source myenv/bin/activate  
+執行訂閱者程式  
+python3 subscriber.py  
+再去原本的終端執行發布者程式  
+python3 publisher.py  
+如果有看到接收訊息就代表成功  
 
 
 
