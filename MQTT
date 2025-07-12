@@ -1,1 +1,4 @@
-建立MQTT
+建立MQTT Broker
+
+sudo apt update
+sudo apt install mosquitto mosquitto-clients
