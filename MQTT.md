@@ -22,3 +22,24 @@ sudo vim /etc/mosquitto/mosquitto.conf
 把裡面的文字 改成這樣
 persistence true
 persistence_location /var/lib/mosquitto/
+
+改完
+sudo systemctl restart mosquitto
+
+## 安裝python 環境
+cd /
+cd /home/timmy10289  反正隨便找一個方便尋找的地方
+
+sudo apt update
+sudo apt install python3-venv
+
+創建一個虛擬環境
+python3 -m venv myenv
+
+激活他 每次要使用都要激活
+source myenv/bin/activate
+
+要退出的話
+deactivate
+
+
