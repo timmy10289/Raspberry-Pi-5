@@ -42,7 +42,8 @@ source myenv/bin/activate
 要退出的話  
 deactivate  
 
-## 安裝MQTT並測試
+## 安裝MQTT並測試  
+使用 localhost：如果你的應用程序（如發布者和訂閱者）與 MQTT Broker 在同一台設備上運行，可以將 Broker 設定為 localhost 或 127.0.0.1  
 pip install paho-mqtt  
 
 建立一個發佈消息的程式  
