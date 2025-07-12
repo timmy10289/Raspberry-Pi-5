@@ -42,4 +42,27 @@ source myenv/bin/activate
 要退出的話  
 deactivate  
 
+## 安裝MQTT並測試
+pip install paho-mqtt  
+
+建立一個發佈消息的程式  
+touch publisher.py  
+sudo nano publisher.py  
+
+```python  
+import paho.mqtt.client as mqtt
+
+broker = "localhost"  # 或者替換為你的 MQTT broker IP
+topic = "test/topic"
+
+client = mqtt.Client()
+client.connect(broker)
+
+client.publish(topic, "Hello, MQTT!")
+client.disconnect()
+
+```
+
+
+
 
