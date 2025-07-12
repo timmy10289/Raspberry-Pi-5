@@ -6,6 +6,7 @@ sudo apt install mosquitto mosquitto-clients
 檢查mosquitto 有沒有運行
 sudo systemctl status mosquitto
 
+**修改配置文件
 Mosquitto 的配置文件位於 /etc/mosquitto/mosquitto.conf。你可以編輯這個文件來更改設置，如開放端口、設置密碼等。
 cd /
 cd etc/mosquitto
@@ -15,3 +16,7 @@ sudo nano /etc/mosquitto/mosquitto.conf
 
 使用vim 編輯 在 vim 中，按 i 進入插入模式進行編輯。編輯完成後，按 Esc 鍵，然後輸入 :wq 並按 Enter 保存並退出。
 sudo vim /etc/mosquitto/mosquitto.conf
+
+把裡面的文字 改成這樣
+persistence true
+persistence_location /var/lib/mosquitto/
