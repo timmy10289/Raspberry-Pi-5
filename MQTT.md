@@ -61,7 +61,29 @@ client.connect(broker)
 client.publish(topic, "Hello, MQTT!")
 client.disconnect()
 
-```
+```  
+建立一個訂閱消息的程式  
+touch subscriber.py   
+sudo nano subscribe.py   
+
+```python  
+import paho.mqtt.client as mqtt
+
+broker = "localhost"  # 或者替換為你的 MQTT broker IP
+topic = "test/topic"
+
+def on_message(client, userdata, message):
+    print(f"Received message '{message.payload.decode()}' on topic '{message.topic}'")
+
+client = mqtt.Client()
+client.connect(broker)
+client.subscribe(topic)
+client.on_message = on_message
+
+client.loop_start()
+
+```  
+
 
 
 
