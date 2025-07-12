@@ -1,4 +1,5 @@
 建立MQTT Broker
+===
 
 這裡使用mosquitto
 sudo apt update
@@ -6,7 +7,8 @@ sudo apt install mosquitto mosquitto-clients
 檢查mosquitto 有沒有運行
 sudo systemctl status mosquitto
 
-**修改配置文件
+修改配置文件
+---
 Mosquitto 的配置文件位於 /etc/mosquitto/mosquitto.conf。你可以編輯這個文件來更改設置，如開放端口、設置密碼等。
 cd /
 cd etc/mosquitto
