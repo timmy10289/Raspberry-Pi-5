@@ -6,6 +6,24 @@ sudo apt update
 sudo apt install mosquitto mosquitto-clients  
 sudo systemctl start mosquitto  
 sudo systemctl enable mosquitto  
+
+##  修改預設文件
+因為會連接不到esp8266 這裡先用匿名登入許可  
+sudo nano /etc/mosquitto/mosquitto.conf  
+允許匿名訪問（如果您不需要身份驗證）：  
+確保以下行存在且未被註釋掉：  
+allow_anonymous true  
+確保網絡設置正確：  
+Mosquitto 默認會綁定到所有可用的網絡接口，您可以確認以下行的設置  
+listener 1883  
+重啟  
+sudo systemctl restart mosquitto  
+## 打開防火牆  
+sudo apt update  
+sudo apt install ufw  
+sudo ufw enable  
+sudo ufw allow 1883  
+sudo ufw status  
 ## 在 ESP8266 上編寫控制代碼  
 
 ```python
